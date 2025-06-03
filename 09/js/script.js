@@ -241,4 +241,29 @@ function exibirConteudo(lista, listaElementos) {
 }
 
 
+function filtrarAlunos() {
+  let filtroPorNomeInput = document.getElementById('filtroNome');
+
+  //prettier-ignore
+  if (filtroPorNomeInput instanceof HTMLInputElement) {
+    let filtroPorNome = filtroPorNomeInput.value.toLowerCase();
+
+    alunosFiltrados = alunos.filter((aluno) => {
+      //prettier-ignore
+      return ((filtroPorNome === '' || aluno.nome.toLowerCase().includes(filtroPorNome)));
+    });
+
+    listarAlunos(alunosFiltrados, 'listaFiltrados');
+    filtroPorNomeInput.value = '';
+  }
+}
+
+function removerAlunosFiltrados() {
+  alunos = alunos.filter((aluno) => !alunosFiltrados.includes(aluno));
+  alunosFiltrados = []; // Limpa a lista de filtrados após a remoção
+  listarAlunos(alunos, 'listaAlunos');
+  listarAlunos(alunosFiltrados, 'listaFiltrados');
+}
+
+
 document.addEventListener('DOMContentLoaded', configurar);
