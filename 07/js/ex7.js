@@ -17,7 +17,7 @@ function calcularIdade() {
     let data = inputData.value;
     console.log(data)
     let validacao = /^\d{2}\/\d{2}\/\d{4}$/;
-        console.log(validacao)
+    console.log(validacao)
 
 
     try {
@@ -31,7 +31,7 @@ function calcularIdade() {
     let dia = parseInt(partes[0], 10);
     console.log(dia);
 
-    let mes = parseInt(partes[1], 10);
+    let mes = parseInt(partes[1], 10) -1;
     console.log(mes);
 
     let ano = parseInt(partes[2], 10);
@@ -46,6 +46,14 @@ function calcularIdade() {
     }
 
     let idade = atual.getFullYear() - dataNasc.getFullYear();
+    let mesAtual = atual.getMonth();
+    let diaAtual = atual.getDay();
+
+    if((mesAtual < mes) || (mesAtual == mes && diaAtual < dia)){
+      idade--;
+    }
+
+
 
 
     exibirResultado(idade);
