@@ -1,7 +1,6 @@
 let alunos = []; // Lista de cadastrados
 let alunosFiltrados = []; // Lista de filtrados
 
-
 function configurar() {
   let validarBtn = document.getElementById('validarBtn');
   let nomeInput = document.getElementById('nome');
@@ -9,11 +8,36 @@ function configurar() {
   let emailInput = document.getElementById('email');
   let telefoneInput = document.getElementById('telefone');
   let dataInput = document.getElementById("data");
+  let btnCadastrar = document.getElementById("adicionarAluno")
 
   //prettier-ignore
   if ((validarBtn instanceof HTMLButtonElement) && (nomeInput instanceof HTMLInputElement) 
     && (cpfInput instanceof HTMLInputElement)&& (emailInput instanceof HTMLInputElement)&&
- (telefoneInput instanceof HTMLInputElement) && (dataInput instanceof HTMLInputElement)) {
+ (telefoneInput instanceof HTMLInputElement) && (dataInput instanceof HTMLInputElement) && 
+ (btnCadastrar instanceof HTMLButtonElement)) {
+
+  btnCadastrar.addEventListener("click", () => {
+    let nome = nomeInput.value;  
+    let cpf = nomeInput.value;  
+    let email = emailInput.value; 
+    let telefone = telefoneInput.value;
+    let data = dataInput.value;
+
+
+      if (nome && cpf && email && telefone && data) {
+        alunos.push({ nome, cpf, email, telefone, data});
+        nomeInput.value = '';
+        cpfInput.value = '';
+        emailInput.value = '';
+        telefoneInput.value = '';
+        dataInput.value = '';
+        listarAlunos(alunos, 'listaAlunos');
+      } else {
+        alert('Preencha todos os campos corretamente.');
+      }
+  });
+
+
     
     validarBtn.addEventListener('click', () => {
       let nome = nomeInput.value;
@@ -146,6 +170,18 @@ function validarData(data) {
   
 }
 
+function listarAlunos(lista, tipo) {
+  let listaAlunos = document.getElementById('listaAlunos');
+
+  // Verifica se os elementos são do tipo esperado
+  if (
+    listaAlunos instanceof HTMLUListElement) {
+    if (tipo === 'listaAlunos') {
+      exibirConteudo(lista, listaAlunos); // Exibe a lista de produtos cadastrado
+  }
+  }
+}
+
 function exibirMensagemNome(mensagem1, cor1) {
   let saida = document.getElementById('saidaNome');
 
@@ -187,9 +223,22 @@ function exibirMensagemData(texto1, cor2) {
   }
 }
 
+function exibirConteudo(lista, listaElementos) {
+  // Limpa a lista antes de exibir o conteúdo
+  // listaElmentos.innerHTML = '';
+  while (listaElementos.firstChild) {
+    listaElementos.removeChild(listaElementos.firstChild);
+  }
 
-
-
+  // Adiciona os itens à lista
+  lista.forEach((alunos) => {
+    let aluno = document.createElement('li');
+    aluno.textContent = `Nome: ${
+      alunos.nome
+    }, CPF: ${alunos.cpf}, Email: ${alunos.email}, Telefone: ${alunos.telefone}, Data de Nascimento: ${alunos.data}`;
+    listaElementos.appendChild(aluno);
+  });
+}
 
 
 document.addEventListener('DOMContentLoaded', configurar);
