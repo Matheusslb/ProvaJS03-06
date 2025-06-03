@@ -1,3 +1,4 @@
+const array = [];
 function configurar() {
   let inserirBtn = document.getElementById('inserirBtn');
   let nomeInput = document.getElementById('nome');
@@ -7,13 +8,14 @@ function configurar() {
   ) {
     inserirBtn.addEventListener('click', () => {
       let nome = nomeInput.value;
-      array.push(validarNome(nome));
-    exibirConteudo();
+      validarNome(nome);
     });
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function validarNome(nome) {
+    
   try {
     let regex = /[^a-zA-ZÀ-ÿ \s]/g;
 
@@ -28,13 +30,25 @@ function validarNome(nome) {
         'O nome deve ter pelo menos duas palavras (nome e sobrenome).'
       );
     }
+    if (nome) {
+    // if (!array.includes(tarefa)
+    if (array.includes(nome) === false) {
+      array.push(nome);
+      exibirMensagem('Nome valido');
+      console.log(array.toString());
+    } else {
+      alert('O item já está na lista.');
+    }
 
-    exibirMensagem(exibirConteudo);
+  } else {
+    alert('Por favor, insira um valor válido.');
+  }
+
   } catch (erro) {
     exibirMensagem(erro.message);
   }
+  
 }
- 
 function exibirMensagem(mensagem) {
   let saida = document.getElementById('saida');
 
@@ -42,17 +56,33 @@ function exibirMensagem(mensagem) {
     saida.textContent = mensagem;
   }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-const array = [];
-
-function exibirConteudo() {
-  let saida = document.getElementById('saida');
-
-  if (saida instanceof HTMLParagraphElement) {
-    saida.textContent = array.join(', ');
-  }
+function sortear(){
+    let number = array.length;
+    Math.random(Number(number)); 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -74,15 +104,5 @@ function exibirSorteio() {
     });
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', configurar);
