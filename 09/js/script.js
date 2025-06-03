@@ -1,3 +1,7 @@
+let alunos = []; // Lista de cadastrados
+let alunosFiltrados = []; // Lista de filtrados
+
+
 function configurar() {
   let validarBtn = document.getElementById('validarBtn');
   let nomeInput = document.getElementById('nome');
@@ -10,28 +14,35 @@ function configurar() {
   if ((validarBtn instanceof HTMLButtonElement) && (nomeInput instanceof HTMLInputElement) 
     && (cpfInput instanceof HTMLInputElement)&& (emailInput instanceof HTMLInputElement)&&
  (telefoneInput instanceof HTMLInputElement) && (dataInput instanceof HTMLInputElement)) {
-
+    
     validarBtn.addEventListener('click', () => {
-      const nome = nomeInput.value;
+      let nome = nomeInput.value;
       validarNome(nome);
     });
     validarBtn.addEventListener('click', () => {
-    const cpf = cpfInput.value;
+    let cpf = cpfInput.value;
       validarCpf(cpf);
     });
     validarBtn.addEventListener('click', () => {
-      const email = emailInput.value;
+      let email = emailInput.value;
       validarEmail(email);
     });
     validarBtn.addEventListener('click', () => {
-      const telefone = telefoneInput.value;
+      let telefone = telefoneInput.value;
       validarTelefone(telefone);
     });
     validarBtn.addEventListener('click', () => {
-      const data = dataInput.value;
+      let data = dataInput.value;
       validarData(data);
     });
   }
+
+  /*if(nome && !isNaN(cpf) && email && telefone && data){
+    alunos.push({nome, cpf, email, telefone, data});
+
+  }*/
+
+  
   
 }
 
@@ -77,7 +88,7 @@ function validarEmail(email) {
     }
 
     // Verificar domínios e TLDs permitidos
-    let dominiosPermitidos = ['gmail', 'hotmail', 'outlook', 'yahoo'];
+    let dominiosPermitidos = ['gmail', 'hotmail', 'outlook'];
     let tldsPermitidos = ['com', 'com.br', 'org'];
 
     let [_, dominioCompleto] = email.split('@');
@@ -175,5 +186,10 @@ function exibirMensagemData(texto1, cor2) {
     mensagem.style.color = cor2;
   }
 }
+
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', configurar);
